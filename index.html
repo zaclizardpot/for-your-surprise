@@ -18,7 +18,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
 
@@ -189,18 +189,20 @@
             pointer-events: none;
         }
 
-        /* 第二階段：面板容器 */
+        /* 第二階段：面板容器 (修復手機滾動) */
         #content-stage {
             display: none;
             position: relative;
             z-index: 2;
             width: 92%;
             max-width: 600px;
-            margin: 30px auto;
+            max-height: 85vh; /* 限制高度讓手機可滑動 */
+            overflow-y: auto; /* 開啟垂直滑動能力 */
+            margin: 20px auto;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 24px;
-            padding: 30px 20px;
+            padding: 25px 18px;
             box-shadow: 0 20px 50px rgba(255, 182, 193, 0.35);
             text-align: center;
             opacity: 0;
@@ -238,7 +240,7 @@
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 12px 25px rgba(255, 107, 129, 0.35);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             user-select: none;
             animation: btnPulse 2.5s infinite ease-in-out;
         }
@@ -552,7 +554,7 @@
         </div>
         <div class="hands-section">
             <div class="hands-emoji">🤲</div>
-            <p class="sub-text">雙手奉上，<span class="highlight-text">點擊拆開</span>專屬於妳的驚喜</p>
+            <p class="sub-text">雙手奉上，<span class="highlight-text">點擊拆開</span>專屬於妳的驚喜 🌸</p>
         </div>
     </div>
 
@@ -568,7 +570,7 @@
                     <div class="play-triangle"></div>
                 </div>
                 <div class="btn-text">
-                    <div class="main-title">點擊播放專屬琴聲 《晴る》</div>
+                    <div class="main-title">點擊播放專屬琴聲 《晴る》 🌸</div>
                     <div class="sub-title">（點擊開啟 YouTube 頁面聆聽）</div>
                 </div>
             </div>
@@ -584,7 +586,7 @@
                     <div class="letter-content" id="letterContent">
                         <p>給怡蓁：</p>
                         <p>這是我最近一直在偷偷練習，想要送給妳的《晴る》，<br>雖然速度還沒有練到最完美，甚至有好多個錯音，但我真的不想再讓妳感到不安，更不想再讓妳一直等待了。</p>
-                        <p>謝謝妳出現在我的生活裡，從一開始單純的問課業問題，到我們開始聊起彼此的生活，才發現原來我們有許多共同的地方，也有許多值得學習對方之處。開始越聊越多、越聊越多，逐漸期待你的回覆，逐漸希望分享我的點點滴滴給你聽。直到我們真的約出來見面了，雖然是以學長帶你逛安麗美特還有請你喝抹茶拿鐵的名義，但這種兩個人一起做彼此喜歡的事情、一起創造回憶，是不是就叫做一種約會呢？<br>(而且學妹還沒有帶傘，當初還不小心開心了一下😆而最近我們也彼此坦白了心意，我也一直想要準備一個正式的告白，卻發現告白似乎不是準備的多盛大，而是有沒有把心意傳給對方。<p>說了這麼多，還有許多點點滴滴就留在我們的回憶裡吧~也不一一說出來了，那些都是我們幸福的證明❤️所以<span class="dots-anim"></span></p>
+                        <p>謝謝妳出現在我的生活裡，從一開始單純的問課業問題，到我們開始聊起彼此的生活，才發現原來我們有許多共同的地方，也有許多值得學習對方之處。開始越聊越多、越聊越多，逐漸期待你的回覆，逐漸希望分享我的點點滴滴給你聽。直到我們真的約出來見面了，雖然是以學長帶你逛安麗美特還有請你喝抹茶拿鐵的名義，但這種兩個人一起做彼此喜歡的事情、一起創造回憶，是不是就叫做一種約會呢？<br>(而且學妹還沒有帶傘，當初還不小心開心了一下😆而最近我們也彼此坦白了心意，我也一直想要準備一個正式的告白，卻發現告白似乎不是準備的多盛大，而是有沒有把心意傳給對方。<br>說了這麼多，還有許多點點滴滴就留在我們的回憶裡吧~也不一一說出來了，那些都是我們幸福的證明❤️所以<span class="dots-anim"></span></p>
                     </div>
                 </div>
             </div>
@@ -613,7 +615,7 @@
         <!-- 階段 D：結果 B 頁面 (包含重新選擇按鈕) -->
         <div id="result-b-page">
             <p style="font-weight:bold; font-size:18px; color:#3f2b96; margin-bottom:10px;">雖然沒有想到是這個結果😣😣但是...</p>
-            <p style="font-size:15px; color:#666;">沒關係，無論多久我都願意等妳！準備好了再點一次喔😜</p>
+            <p style="font-size:15px; color:#666;">沒關係，無論多久我都願意等妳！準備好了再點一次喔 😜</p>
             <button class="restart-btn" onclick="resetAllToStage1()">🔄 重新選擇</button>
         </div>
 
