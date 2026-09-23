@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>給怡蓁的專屬驚喜 🌸</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fffafc;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 背景 4 列粉紅愛心流動特效 */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            display: flex;
+            justify-content: space-around;
+            overflow: hidden;
+        }
+
+        .heart-column {
+            width: 20%;
+            height: 100%;
+            position: relative;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -100px;
+            color: #ffb6c1;
+            opacity: 0;
+            animation: floatUp 6s linear infinite;
+        }
+
+        .col-1 .h1 { left: 15%; animation-delay: 0s; font-size: 48px; }
+        .col-1 .h2 { left: 55%; animation-delay: 3s; font-size: 58px; }
+        .col-2 .h1 { left: 25%; animation-delay: 1.5s; font-size: 52px; }
+        .col-2 .h2 { left: 65%; animation-delay: 4.5s; font-size: 42px; }
+        .col-3 .h1 { left: 10%; animation-delay: 2s; font-size: 60px; }
+        .col-3 .h2 { left: 50%; animation-delay: 5s; font-size: 45px; }
+        .col-4 .h1 { left: 35%; animation-delay: 0.8s; font-size: 50px; }
+        .col-4 .h2 { left: 75%; animation-delay: 3.8s; font-size: 40px; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.85; }
+            85% { opacity: 0.85; }
+            100% { transform: translateY(-120vh) scale(1.2) rotate(20deg); opacity: 0; }
+        }
+
+        /* 第一階段：禮物盒主容器 */
+        .gift-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .gift-container:hover { transform: scale(1.05); }
+
+        .gift-box {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(255, 154, 158, 0.35);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .gift-box::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: -8px;
+            width: 156px;
+            height: 30px;
+            background: linear-gradient(135deg, #ff8187 0%, #fecfef 100%);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            z-index: 2;
+        }
+
+        .ribbon-vertical {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 152px;
+            background: #ffffff;
+            z-index: 1;
+        }
+
+        .ribbon-horizontal {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 140px;
+            height: 24px;
+            background: #ffffff;
+            z-index: 1;
+        }
+
+        .bow {
+            position: absolute;
+            top: -32px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 30px;
+            z-index: 3;
+        }
+
+        .bow::before, .bow::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 26px;
+            height: 26px;
+            border: 5px solid #ffffff;
+            border-radius: 50% 50% 0 50%;
+        }
+
+        .bow::before { left: 0; transform: rotate(45deg); }
+        .bow::after { right: 0; transform: rotate(-45deg) scaleX(-1); }
+
+        .hands-section {
+            margin-top: 35px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hands-emoji {
+            font-size: 52px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .sub-text {
+            font-size: 18px;
+            color: #555;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .highlight-text { color: #ff6b81; font-weight: 600; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .opened {
+            transform: scale(1.5) rotate(5deg) !important;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* 第二階段：面板容器 */
+        #content-stage {
+            display: none;
+            position: relative;
+            z-index: 2;
+            width: 92%;
+            max-width: 600px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 30px 20px;
+            box-shadow: 0 20px 50px rgba(255, 182, 193, 0.35);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        #content-stage.show {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .stage-title {
+            font-size: 22px;
+            color: #ff4757;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        /* 3D 音樂卡片按鈕 */
+        .video-btn-card {
+            width: 100%;
+            background: linear-gradient(145deg, #ff8599 0%, #ff6b81 100%);
+            border-radius: 20px;
+            padding: 22px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 12px 25px rgba(255, 107, 129, 0.35);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 30px;
+            user-select: none;
+            animation: btnPulse 2.5s infinite ease-in-out;
+        }
+
+        .video-btn-card:hover { transform: translateY(-3px) scale(1.02); }
+
+        .play-icon-3d {
+            width: 58px; height: 58px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .play-triangle {
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 10px 0 10px 18px;
+            border-color: transparent transparent transparent #ff526c;
+            margin-left: 4px;
+        }
+
+        .btn-text { text-align: center; color: white; }
+        .main-title { font-size: 17px; font-weight: bold; }
+        .sub-title { font-size: 13px; opacity: 0.92; margin-top: 4px; }
+
+        @keyframes btnPulse {
+            0%, 100% { box-shadow: 0 12px 25px rgba(255, 107, 129, 0.35); }
+            50% { box-shadow: 0 16px 32px rgba(255, 107, 129, 0.55); }
+        }
+
+        /* 信封樣式 */
+        .envelope-wrapper {
+            width: 100%;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .envelope {
+            width: 100%;
+            min-height: 220px;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe0e9 100%);
+            border-radius: 20px;
+            padding: 30px 20px;
+            position: relative;
+            border: 2px solid #ffccd5;
+            box-shadow: 0 12px 30px rgba(255, 182, 193, 0.35);
+            cursor: pointer;
+            transition: all 0.5s ease;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 110px;
+            background: rgba(255, 255, 255, 0.45);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            border-bottom: 1.5px solid rgba(255, 182, 193, 0.7);
+            transition: all 0.6s ease;
+        }
+
+        .heart-seal-3d {
+            position: absolute;
+            top: 63px; left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            font-size: 56px;
+            cursor: pointer;
+            filter: drop-shadow(0 8px 15px rgba(255, 107, 129, 0.45));
+            animation: heartPulse 2s infinite ease-in-out;
+            transition: all 0.5s ease;
+            user-select: none;
+        }
+
+        .seal-text-hint {
+            position: absolute;
+            bottom: 25px;
+            font-size: 15px;
+            color: #ff4757;
+            font-weight: 600;
+            letter-spacing: 1px;
+            z-index: 5;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: translateX(-50%) scale(1) rotate(0deg); }
+            50% { transform: translateX(-50%) scale(1.15) rotate(5deg); }
+        }
+
+        .letter-content {
+            display: none;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px 20px;
+            text-align: left;
+            line-height: 1.85;
+            color: #444;
+            font-size: 15px;
+            box-shadow: inset 0 0 15px rgba(255, 240, 243, 0.8);
+            border: 1px solid #ffccd5;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .letter-content p { margin-bottom: 14px; }
+        .letter-content p:last-child { margin-bottom: 0; }
+
+        /* 動態點點點動畫 */
+        .dots-anim::after {
+            content: ' .';
+            animation: dotsLoop 1.5s steps(3, start) infinite;
+            display: inline-block;
+            width: 24px;
+            text-align: left;
+        }
+
+        @keyframes dotsLoop {
+            0% { content: ' .'; }
+            33% { content: ' . .'; }
+            66% { content: ' . . .'; }
+            100% { content: ' .'; }
+        }
+
+        .envelope.unsealed {
+            min-height: auto;
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .envelope.unsealed .envelope-flap,
+        .envelope.unsealed .heart-seal-3d,
+        .envelope.unsealed .seal-text-hint {
+            display: none;
+        }
+
+        /* 按鈕視覺與互動 */
+        .so-what-btn, .accept-btn, .think-btn, .restart-btn {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            padding: 12px 32px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 117, 140, 0.4);
+            transition: all 0.3s ease;
+            margin: 8px;
+            white-space: nowrap;
+        }
+
+        .think-btn {
+            background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+            box-shadow: 0 8px 20px rgba(168, 192, 255, 0.4);
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            box-shadow: 0 8px 20px rgba(253, 160, 133, 0.4);
+            margin-top: 15px;
+        }
+
+        /* 彈窗內部的專屬按鈕 */
+        .custom-modal-btn {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px 26px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 117, 140, 0.4);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .so-what-wrapper {
+            display: none;
+            margin-top: 15px;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        /* 告白第二頁 (隱藏頁面) */
+        #confession-page-2 {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            width: 100%;
+        }
+
+        .big-question {
+            font-size: 22px;
+            color: #ff2754;
+            font-weight: bold;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* 自訂彈出視窗 Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            padding: 28px 24px;
+            border-radius: 20px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-text {
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        /* 結果 A 頁面 */
+        #result-a-page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background: #fff0f3;
+            border-radius: 20px;
+            padding: 25px 20px;
+            border: 2px solid #ffccd5;
+            line-height: 1.8;
+            color: #444;
+            font-size: 16px;
+            text-align: left;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
+        }
+
+        /* 結果 B 頁面 */
+        #result-b-page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background: #f0f4ff;
+            border-radius: 20px;
+            padding: 25px 20px;
+            border: 2px solid #cce0ff;
+            line-height: 1.8;
+            color: #444;
+            font-size: 16px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(204, 224, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 背景 4 列飄升粉紅愛心 -->
+    <div class="hearts-bg">
+        <div class="heart-column col-1">
+            <div class="floating-heart h1">🩷</div>
+            <div class="floating-heart h2">💗</div>
+        </div>
+        <div class="heart-column col-2">
+            <div class="floating-heart h1">💖</div>
+            <div class="floating-heart h2">💕</div>
+        </div>
+        <div class="heart-column col-3">
+            <div class="floating-heart h1">💓</div>
+            <div class="floating-heart h2">🩷</div>
+        </div>
+        <div class="heart-column col-4">
+            <div class="floating-heart h1">💗</div>
+            <div class="floating-heart h2">💖</div>
+        </div>
+    </div>
+
+    <!-- 第一階段：禮物盒與雙手 -->
+    <div class="gift-container" id="giftBoxContainer" onclick="openGift()">
+        <div class="gift-box">
+            <div class="bow"></div>
+            <div class="ribbon-vertical"></div>
+            <div class="ribbon-horizontal"></div>
+        </div>
+        <div class="hands-section">
+            <div class="hands-emoji">🤲</div>
+            <p class="sub-text">雙手奉上，<span class="highlight-text">點擊拆開</span>專屬於妳的驚喜 🌸</p>
+        </div>
+    </div>
+
+    <!-- 第二階段：面板容器 -->
+    <div id="content-stage">
+        
+        <!-- 階段 A：音樂卡片 ＋ 信封內容 -->
+        <div id="confession-page-1" style="width:100%;">
+            <h2 class="stage-title">🌸 送給學妹的專屬琴聲 🌸</h2>
+
+            <div class="video-btn-card" onclick="window.open('https://youtu.be/DM8eDh8_7Dc', '_blank')">
+                <div class="play-icon-3d">
+                    <div class="play-triangle"></div>
+                </div>
+                <div class="btn-text">
+                    <div class="main-title">點擊播放專屬琴聲 《晴る》 🌸</div>
+                    <div class="sub-title">（點擊開啟專屬 YouTube 頁面聆聽）</div>
+                </div>
+            </div>
+
+            <!-- 信封與信紙 -->
+            <div class="envelope-wrapper">
+                <div class="envelope" id="envelopeCard" onclick="openLetter()">
+                    <div class="envelope-flap" id="envelopeFlap"></div>
+                    <div class="heart-seal-3d" id="heartSeal">❤️</div>
+                    <div class="seal-text-hint" id="sealHint">💌 點擊愛心貼紙，撕開給妳的信</div>
+
+                    <!-- 信紙內文 -->
+                    <div class="letter-content" id="letterContent">
+                        <p>給怡蓁：</p>
+                        <p>這是我最近一直在偷偷練習，想要送給妳的《晴る》，<br>雖然速度還沒有練到最完美，甚至有好多個錯音，但我真的不想再讓妳感到不安，更不想再讓妳一直等待了。</p>
+                        <p>謝謝妳出現在我的生活裡，從一開始單純的問課業問題，到我們開始聊起彼此的生活，才發現原來我們有許多共同的地方，也有許多值得學習對方之處。開始越聊越多、越聊越多，逐漸期待你的回覆，逐漸希望分享我的點點滴滴給你聽。直到我們真的約出來見面了，雖然是以學長帶你逛安麗美特還有請你喝抹茶拿鐵的名義，但這種兩個人一起做彼此喜歡的事情、一起創造回憶，是不是就叫做一種約會呢？<br>(而且學妹還沒有帶傘，當初還不小心開心了一下😆而最近我們也彼此坦白了心意，我也一直想要準備一個正式的告白，卻發現告白似乎不是準備的多盛大，而是有沒有把心意傳給對方。<p>說了這麼多，還有許多點點滴滴就留在我們的回憶裡吧~也不一一說出來了，那些都是我們幸福的證明❤️所以<span class="dots-anim"></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 信讀完後出現的「所以什麼？」按鈕 -->
+            <div class="so-what-wrapper" id="soWhatWrapper">
+                <button class="so-what-btn" onclick="goToPage2()">所以什麼？ 🧐</button>
+            </div>
+        </div>
+
+        <!-- 階段 B：正式告白問句頁面 -->
+        <div id="confession-page-2">
+            <div class="big-question">學妹！不對，黃怡蓁，妳願意當我的女朋友嗎？❤️</div>
+            <div style="display:flex; justify-content:center; align-items:center; flex-wrap:wrap; width:100%;">
+                <button class="accept-btn" id="yesBtn" onclick="handleYesClick()">我願意！❤️</button>
+                <button class="think-btn" id="thinkBtn" onclick="handleThinkClick()">我再想想😗</button>
+            </div>
+        </div>
+
+        <!-- 階段 C：結果 A 頁面 -->
+        <div id="result-a-page">
+            <p>耶~那這樣學妹，不對，我親愛的女朋友，會想要花嗎~我們可以約出去一起逛建國花市😍</p>
+            <p style="font-size:13px; color:#888; margin-top:12px;">小聲跟你說，這裡沒有跟ig連通🤧記得要通知你的男友這個好消息呦~</p>
+        </div>
+
+        <!-- 階段 D：結果 B 頁面 (包含重新選擇按鈕) -->
+        <div id="result-b-page">
+            <p style="font-weight:bold; font-size:18px; color:#3f2b96; margin-bottom:10px;">雖然沒有想到是這個結果😣😣但是...</p>
+            <p style="font-size:15px; color:#666;">沒關係，無論多久我都願意等妳！準備好了再點一次喔 😜</p>
+            <button class="restart-btn" onclick="resetAllToStage1()">🔄 重新選擇</button>
+        </div>
+
+    </div>
+
+    <!-- 自訂彈出視窗 Modal -->
+    <div class="modal-overlay" id="customModal">
+        <div class="modal-box">
+            <div class="modal-text" id="modalText">訊息內容</div>
+            <div id="modalButtons" style="display:flex; justify-content:center; gap:12px; flex-wrap:nowrap;"></div>
+        </div>
+    </div>
+
+    <script>
+        let thinkScale = 1.0;
+        let yesClickCount = 0;
+
+        function openGift() {
+            const container = document.getElementById('giftBoxContainer');
+            container.classList.add('opened');
+            setTimeout(() => {
+                container.style.display = 'none';
+                const contentStage = document.getElementById('content-stage');
+                contentStage.style.display = 'flex';
+                setTimeout(() => {
+                    contentStage.classList.add('show');
+                }, 50);
+            }, 600);
+        }
+
+        function openLetter() {
+            const envelope = document.getElementById('envelopeCard');
+            const letter = document.getElementById('letterContent');
+            const soWhatWrapper = document.getElementById('soWhatWrapper');
+
+            if (!envelope.classList.contains('unsealed')) {
+                envelope.classList.add('unsealed');
+                setTimeout(() => {
+                    letter.style.display = 'block';
+                    setTimeout(() => {
+                        letter.style.opacity = '1';
+                        letter.style.transform = 'translateY(0)';
+                        setTimeout(() => {
+                            soWhatWrapper.style.display = 'block';
+                            setTimeout(() => { soWhatWrapper.style.opacity = '1'; }, 50);
+                        }, 800);
+                    }, 50);
+                }, 400);
+            }
+        }
+
+        function goToPage2() {
+            document.getElementById('confession-page-1').style.display = 'none';
+            const page2 = document.getElementById('confession-page-2');
+            page2.style.display = 'flex';
+            setTimeout(() => { page2.style.opacity = '1'; }, 50);
+        }
+
+        function showModal(text, buttonsHTML) {
+            document.getElementById('modalText').innerHTML = text;
+            document.getElementById('modalButtons').innerHTML = buttonsHTML;
+            document.getElementById('customModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('customModal').style.display = 'none';
+        }
+
+        function handleYesClick() {
+            yesClickCount++;
+            if (yesClickCount === 1) {
+                showModal("真的不再想想嗎~", `
+                    <button class="custom-modal-btn" onclick="closeModal(); goToResultA();">不再想想</button>
+                    <button class="custom-modal-btn" style="background:#aaa;" onclick="closeModal();">再想想</button>
+                `);
+            } else {
+                showModal("看來學妹真的等不及了呢😘", `
+                    <button class="custom-modal-btn" onclick="closeModal(); goToResultA();">對的！</button>
+                `);
+            }
+        }
+
+        function handleThinkClick() {
+            if (Math.round(thinkScale * 10) / 10 <= 0.1) {
+                showModal("好吧...看來學妹還需要時間思考我們的關係😣😣", `
+                    <button class="custom-modal-btn" onclick="closeModal(); goToResultB();">好的 🥺</button>
+                `);
+                return;
+            }
+
+            if (yesClickCount >= 1) {
+                showModal("嘿嘿學妹也不要想太久喔，畢竟你剛剛都按了我願意呢", `
+                    <button class="custom-modal-btn" onclick="closeModal();">我知道啦 🙈</button>
+                `);
+            } else {
+                showModal("原來學妹也需要再想想啊！", `
+                    <button class="custom-modal-btn" onclick="closeModal(); shrinkThinkBtn();">沒錯🫠</button>
+                `);
+            }
+        }
+
+        function shrinkThinkBtn() {
+            thinkScale -= 0.1;
+            if (thinkScale < 0.1) thinkScale = 0.1;
+            const btn = document.getElementById('thinkBtn');
+            btn.style.transform = `scale(${thinkScale})`;
+        }
+
+        function goToResultA() {
+            document.getElementById('confession-page-2').style.display = 'none';
+            const resultPage = document.getElementById('result-a-page');
+            resultPage.style.display = 'flex';
+            setTimeout(() => { resultPage.style.opacity = '1'; }, 50);
+        }
+
+        function goToResultB() {
+            document.getElementById('confession-page-2').style.display = 'none';
+            const resultPageB = document.getElementById('result-b-page');
+            resultPageB.style.display = 'flex';
+            setTimeout(() => { resultPageB.style.opacity = '1'; }, 50);
+        }
+
+        /* 完整重置函式 */
+        function resetAllToStage1() {
+            thinkScale = 1.0;
+            yesClickCount = 0;
+
+            const thinkBtn = document.getElementById('thinkBtn');
+            if (thinkBtn) thinkBtn.style.transform = 'scale(1)';
+
+            document.getElementById('result-b-page').style.display = 'none';
+            document.getElementById('result-b-page').style.opacity = '0';
+            document.getElementById('result-a-page').style.display = 'none';
+            document.getElementById('result-a-page').style.opacity = '0';
+            document.getElementById('confession-page-2').style.display = 'none';
+            document.getElementById('confession-page-2').style.opacity = '0';
+
+            const envelope = document.getElementById('envelopeCard');
+            envelope.classList.remove('unsealed');
+            document.getElementById('letterContent').style.display = 'none';
+            document.getElementById('letterContent').style.opacity = '0';
+            document.getElementById('letterContent').style.transform = 'translateY(20px)';
+            document.getElementById('soWhatWrapper').style.display = 'none';
+            document.getElementById('soWhatWrapper').style.opacity = '0';
+
+            document.getElementById('confession-page-1').style.display = 'block';
+
+            const contentStage = document.getElementById('content-stage');
+            contentStage.classList.remove('show');
+            contentStage.style.display = 'none';
+            contentStage.style.opacity = '0';
+
+            const giftBoxContainer = document.getElementById('giftBoxContainer');
+            giftBoxContainer.classList.remove('opened');
+            giftBoxContainer.style.display = 'flex';
+            giftBoxContainer.style.opacity = '1';
+        }
+    </script>
+</body>
+</html>
